@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<OpcUaSource FileVersion="4" ArVersion="D4.52">
+<?AutomationStudio FileVersion="4.9"?>
+<OpcUaSource FileVersion="9" ArVersion="M4.93">
   <Aliases>
     <ACLAliases>
       <ACL Id="1">
-        <ACE RoleId="2" RoleName="Everyone" Access="0x015F" />
+        <ACE RoleName="Everyone" Access="0x015F" />
       </ACL>
       <ACL Id="2">
-        <ACE RoleId="2" RoleName="Everyone" Access="0x017F" />
+        <ACE RoleName="Everyone" Access="0x017F" />
       </ACL>
     </ACLAliases>
     <EURangeViolationAliases />
@@ -16,12 +17,16 @@
   <DefaultView AclId="2">
     <Module Name="&lt;Default&gt;">
       <GlobalVariables Name="Global Variables">
-        <Variable Name="ArUser" AutomaticEnable="True">
-          <Variable Name="VIS" EnableArrayElements="True" />
+        <Variable Name="ArUser" RecursiveEnable="1">
+          <Variable Name="VIS" RecursiveEnable="1" />
           <Variable Name="DAT">
-            <Variable Name="UserActive" EnableArrayElements="True" />
+            <Variable Name="UserActive" RecursiveEnable="1" />
           </Variable>
         </Variable>
+        <Variable Name="MAX_USER_CLIENTS" />
+        <Variable Name="MAX_USER_ITEM_LEN" />
+        <Variable Name="MAX_USER_NAMES" />
+        <Variable Name="MAX_USER_ROLES" />
       </GlobalVariables>
       <Task Name="UserManage" />
     </Module>
