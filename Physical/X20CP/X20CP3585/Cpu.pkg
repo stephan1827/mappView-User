@@ -14,9 +14,10 @@
     <Object Type="Package">mappView</Object>
   </Objects>
   <Configuration ModuleId="X20CP3585">
-    <AutomationRuntime Version="D4.91" />
+    <AutomationRuntime Version="J4.93" />
     <Build GccVersion="4.1.2" />
     <DefaultTargetMemory Tasks="UserROM" />
+    <Safety SafetyRelease="0.0" />
     <Transfer SavedOfflineInstallationFolder="" SavedPipDestinationFolder="" SavedRuntimeUtilityCenterPackagePath="" />
     <Vc FirmwareVersion="V4.52.0" />
     <OnlineConfiguration Name="X20CP3585" DeviceType="TCPIP" DeviceParameters="/IF=tcpip /LOPO=11159 /SA=1" ConnectionParameters="/COMT=2500 /RT=1000 /AM=* /SDT=5 /DAIP=10.49.140.146 /REPO=11159 /ANSL=1 /PT=11169" Description="" />

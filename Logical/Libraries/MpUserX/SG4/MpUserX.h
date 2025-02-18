@@ -1,6 +1,6 @@
 /* Automation Studio generated header file */
 /* Do not edit ! */
-/* MpUserX 5.17.0 */
+/* MpUserX 5.24.3 */
 
 #ifndef _MPUSERX_
 #define _MPUSERX_
@@ -9,7 +9,7 @@ extern "C"
 {
 #endif
 #ifndef _MpUserX_VERSION
-#define _MpUserX_VERSION 5.17.0
+#define _MpUserX_VERSION 5.24.3
 #endif
 
 #include <bur/plctypes.h>
@@ -79,6 +79,17 @@ typedef enum MpUserXServerEnum
 {	mpUSERX_SERVER_ACTIVE_DIRECTORY = 0,
 	mpUSERX_SERVER_389DS = 1
 } MpUserXServerEnum;
+
+typedef enum MpUserXUserTypeEnum
+{	mpUSERX_USER_LOCAL = 0,
+	mpUSERX_USER_CENTRAL = 1
+} MpUserXUserTypeEnum;
+
+typedef enum MpUserXFileChecksumEnum
+{	mpUSERX_FILE_CHECKSUM_IGNORE = 0,
+	mpUSERX_FILE_CHECKSUM_WARNING = 1,
+	mpUSERX_FILE_CHECKSUM_ERROR = 2
+} MpUserXFileChecksumEnum;
 
 typedef enum MpUserXUIPasswordCriteriaEnum
 {	mpUSERX_PASSWORD_CRIT_NONE = 0,
@@ -152,7 +163,9 @@ typedef enum MpUserXErrorEnum
 	mpUSERX_WRN_LDAP_WARNING = -2137886670,
 	mpUSERX_ERR_PASSWORD_RESTRICTION = -1064144845,
 	mpUSERX_ERR_FUNCTION_UNAVAILABLE = -1064144844,
-	mpUSERX_WRN_PASSWORD_WILL_EXPIRE = -2137886667
+	mpUSERX_WRN_PASSWORD_WILL_EXPIRE = -2137886667,
+	mpUSERX_WRN_INVALID_DISPLAY_NAME = -2137886666,
+	mpUSERX_WRN_IMPORT_DATA = -2137886661
 } MpUserXErrorEnum;
 
 typedef enum MpUserXLoginAlarmEnum
@@ -199,6 +212,7 @@ typedef struct MpUserXMgrUIUserInfoType
 	plcdt LastLogin;
 	plcdt PasswordExpired;
 	struct MpUserXMgrUIAdditionalDataType AdditionalData[10];
+	enum MpUserXUserTypeEnum UserType;
 } MpUserXMgrUIUserInfoType;
 
 typedef struct MpUserXMgrUIRoleListType
@@ -409,6 +423,7 @@ typedef struct MpUserXLoginUIConnectType
 	struct MpUserXLoginUIPwdType ChangePassword;
 	struct MpUserXUIMessageBoxType MessageBox;
 	unsigned short DefaultLayerStatus;
+	enum MpUserXUserTypeEnum UserType;
 } MpUserXLoginUIConnectType;
 
 typedef struct MpUserXConfigType
@@ -431,6 +446,7 @@ typedef struct MpUserXConfigType
 	signed long AdminUnlockTime;
 	signed long AutoLogoutTime;
 	signed long PasswordExpirationNotification;
+	enum MpUserXFileChecksumEnum FileChecksum;
 } MpUserXConfigType;
 
 typedef struct MpUserXHostType
@@ -450,11 +466,14 @@ typedef struct MpUserXServerType
 	struct MpUserXHostType Hosts[10];
 	struct MpUserXGroupToRoleMappingType Mapping;
 	plcstring AdditionalUserData[10][101];
+	plcstring DisplayName[101];
+	unsigned short Timeout;
 } MpUserXServerType;
 
 typedef struct MpUserXServerConfigType
 {	enum MpUserXUserMgmtEnum UserMgmtSystemType;
 	struct MpUserXServerType Server;
+	plcbit PrioritizeCentralUsers;
 } MpUserXServerConfigType;
 
 typedef struct MpUserXMappingMappingType
@@ -501,6 +520,7 @@ typedef struct MpUserXLoginInfoType
 {	plctime AutoLogoutRemain;
 	struct MpUserXDiagType Diag;
 	signed long DaysUntilPasswordExpiration;
+	enum MpUserXUserTypeEnum UserType;
 } MpUserXLoginInfoType;
 
 typedef struct MpUserXInfoType
