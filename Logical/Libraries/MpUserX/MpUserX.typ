@@ -48,6 +48,17 @@ TYPE
 		mpUSERX_SERVER_ACTIVE_DIRECTORY := 0, (*Use active directory server*)
 		mpUSERX_SERVER_389DS := 1 (*Use 389 directory server*)
 		);
+	MpUserXUserTypeEnum : 
+		(
+		mpUSERX_USER_LOCAL := 0, (*Local user*)
+		mpUSERX_USER_CENTRAL := 1 (*Central user*)
+		);
+	MpUserXFileChecksumEnum :
+		(
+		mpUSERX_FILE_CHECKSUM_IGNORE := 0, (*Ignore file checksum*)
+		mpUSERX_FILE_CHECKSUM_WARNING := 1, (*Warning if file checksum incorrect or missing*)
+		mpUSERX_FILE_CHECKSUM_ERROR := 2 (*Error if file checksum incorrect or missing*)
+		);
 	MpUserXUIMessageBoxType : 	STRUCT 
 		LayerStatus : UINT; (*Visibility of the dialog box *)
 		Type : MpUserXUIMessageEnum; (*Type of dialog box*)
@@ -68,7 +79,7 @@ TYPE
 		RangeEnd : REAL; (*Shows a bar indicating which part of the list is currently being displayed-End[%]*)
 	END_STRUCT;
 	MpUserXMgrUIUserInfoType : 	STRUCT 
-		UserName : WSTRING[50]; (*Username for logging in*)
+		UserName : WSTRING[50]; (*Display name*)
 		FullName : WSTRING[100]; (*Complete username*)
 		Roles : ARRAY[0..9]OF UINT; (*Assigned roles*)
 		Locked : BOOL; (*User is blocked*)
@@ -81,6 +92,7 @@ TYPE
 		LastLogin : DATE_AND_TIME; (*Date and time of the last login*)
 		PasswordExpired : DATE_AND_TIME; (*Date and time of password expiration*)
 		AdditionalData : ARRAY[0..9]OF MpUserXMgrUIAdditionalDataType; (*Additional user data*)
+		UserType : MpUserXUserTypeEnum; (*User's user type*)
 	END_STRUCT;
 	MpUserXMgrUIAdditionalDataType : 	STRUCT 
 		Key : WSTRING[20]; (*Value identifier*)
@@ -279,6 +291,7 @@ TYPE
 		ChangePassword : MpUserXLoginUIPwdType; (*Used to change the password*)
 		MessageBox : MpUserXUIMessageBoxType; (*Controls dialog boxes*)
 		DefaultLayerStatus : UINT; (*Status data point for the default layer of the visualization page where logging in and out takes place*)
+		UserType : MpUserXUserTypeEnum; (*Current user's user type*)
 	END_STRUCT;
 	MpUserXConfigType : 	STRUCT 
 		NoDelete : BOOL := TRUE; (*Deletion of users not allowed*)
@@ -300,6 +313,7 @@ TYPE
 		AdminUnlockTime : DINT := 3600; (*Automatic Unlock Time for Administrators (0=disabled)*)
 		AutoLogoutTime : DINT := 3600; (*Auto Logout Time for all sessions on the system (0=disabled)*)
 		PasswordExpirationNotification : DINT := 0; (*Defines how long before password expiration users should receive a password expiration notification. (0=disabled)*)
+		FileChecksum : MpUserXFileChecksumEnum := mpUSERX_FILE_CHECKSUM_WARNING; (*Defines behaviour when input-file's checksum is invalid or missing*) 
 	END_STRUCT;
 	MpUserXHostType : 	STRUCT 
 		Host : STRING[255]; (*DNS name or IPv4 address of the server the client will connect to*)
@@ -316,10 +330,13 @@ TYPE
 		Hosts : ARRAY[0..9]OF MpUserXHostType; (*Host list*)
 		Mapping : MpUserXGroupToRoleMappingType; (*Settings for mapping*)
 		AdditionalUserData : ARRAY[0..9]OF STRING[100]; (*Settings for additional data that should be fetched from server*)
+		DisplayName : STRING[100] := 'Username'; (*Display name attribute that should be fetched from server*)
+		Timeout : UINT := 0; (*Timeout when connection is lost. '0' equals 'Automatic'.*)
 	END_STRUCT;
 	MpUserXServerConfigType : 	STRUCT 
 		UserMgmtSystemType : MpUserXUserMgmtEnum := mpUSERX_USERMGMT_LOCAL; (*Select user management system type*)
 		Server : MpUserXServerType; (*Server settings*)
+		PrioritizeCentralUsers : BOOL := TRUE; (*Prioritize central users*)
 	END_STRUCT;
 	MpUserXMappingConfigType : 	STRUCT 
 		Mapping : ARRAY[0..99]OF MpUserXMappingMappingType; (*Entry of mapping table*)
@@ -355,6 +372,7 @@ TYPE
 		AutoLogoutRemain : TIME; (*Time remaining before automatic logout [s]*)
 		Diag : MpUserXDiagType; (*Diagnostic structure for the status ID*)
 		DaysUntilPasswordExpiration : DINT; (*Time remaining before password expires [days]*)
+		UserType : MpUserXUserTypeEnum; (*User's user type*)
 	END_STRUCT;
 	MpUserXInfoType : 	STRUCT 
 		Diag : MpUserXDiagType; (*Diagnostic structure for the status ID*)

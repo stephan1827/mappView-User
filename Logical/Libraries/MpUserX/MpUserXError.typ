@@ -65,6 +65,8 @@ TYPE
 		mpUSERX_WRN_LDAP_WARNING := -2137886670, (*LDAP warning: {2:ErrorText} ({1:ErrorNumber}) [Error: 28722, 0x80927032] *)
 		mpUSERX_ERR_PASSWORD_RESTRICTION := -1064144845, (*Could not change password. New password does not meet the server's password policy (e.g. length, complexity, history). [Error: 28723, 0xC0927033]*)
 		mpUSERX_ERR_FUNCTION_UNAVAILABLE := -1064144844, (*Function is not available (runtime mismatch). [Error: 28724, 0xC0927034]*)
-		mpUSERX_WRN_PASSWORD_WILL_EXPIRE := -2137886667 (*Password will expire in {1:RemainingDays} days. [Error: 28725, 0x80927035]*)
+		mpUSERX_WRN_PASSWORD_WILL_EXPIRE := -2137886667, (*Password will expire in {1:RemainingDays} days. [Error: 28725, 0x80927035]*)
+		mpUSERX_WRN_INVALID_DISPLAY_NAME := -2137886666, (*Attribute {1:DisplayName} does not exist or has no valid value. 'Username' was used instead. [Error: 28726: 0x80927036]*)
+		mpUSERX_WRN_IMPORT_DATA := -2137886661 (*Import warning for {2:Section} [Error: 28731, 0x8092703B]*)
 		);
 END_TYPE

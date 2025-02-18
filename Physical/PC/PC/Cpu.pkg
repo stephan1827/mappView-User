@@ -14,7 +14,7 @@
     <Object Type="Package">mappView</Object>
   </Objects>
   <Configuration ModuleId="PC_any">
-    <AutomationRuntime Version="D4.91" />
+    <AutomationRuntime Version="M4.93" />
     <Build GccVersion="4.1.2" />
     <DefaultTargetMemory Tasks="UserROM" />
     <Safety SafetyRelease="0.0" />
