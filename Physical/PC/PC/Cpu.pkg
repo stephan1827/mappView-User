@@ -18,11 +18,11 @@
     <Object Type="Package">VC</Object>
   </Objects>
   <Configuration ModuleId="PC_any">
-    <AutomationRuntime Version="M4.93" />
-    <Build GccVersion="4.1.2" />
+    <AutomationRuntime Version="6.1.1" />
+    <Build GccVersion="11.3.0" />
     <DefaultTargetMemory Tasks="UserROM" />
     <Safety SafetyRelease="0.0" />
     <Transfer SavedOfflineInstallationFolder="" SavedPipDestinationFolder="" SavedRuntimeUtilityCenterPackagePath="" />
-    <Vc FirmwareVersion="V4.52.0" />
+    <Vc FirmwareVersion="" />
   </Configuration>
 </Cpu>

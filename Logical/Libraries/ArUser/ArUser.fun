@@ -284,10 +284,11 @@ END_FUNCTION_BLOCK
 	END_VAR
 END_FUNCTION_BLOCK
 
-{REDUND_CONTEXT} {REDUND_UNREPLICABLE} FUNCTION_BLOCK ArUserExport (*Write all users to a file; asynchronous execution.*)
+{REDUND_CONTEXT} {REDUND_UNREPLICABLE} FUNCTION_BLOCK ArUserExportEx (*Write all users to a file located on file device; asynchronous execution.*)
 	VAR_INPUT
 		Execute			: BOOL;					(*Start execution.*)
-		FilePath		: STRING[128];			(*The path of the file to create.*)
+		Device			: STRING[128];			(*Name of the file device where the file should be located.*)
+		LocalPath		: STRING[128];			(*The path(name) of the file to create.*)
 	END_VAR
 	
 	VAR_OUTPUT
@@ -302,10 +303,11 @@ END_FUNCTION_BLOCK
 	END_VAR
 END_FUNCTION_BLOCK
 
-{REDUND_CONTEXT} {REDUND_UNREPLICABLE} FUNCTION_BLOCK ArUserImport (*Delete existing users and import users from a file; asynchronous execution.*)
+{REDUND_CONTEXT} {REDUND_UNREPLICABLE} FUNCTION_BLOCK ArUserImportEx (*Delete existing users and import users from a file located on a file device; asynchronous execution.*)
 	VAR_INPUT
 		Execute			: BOOL;					(*Start execution.*)
-		FilePath		: STRING[128];			(*The path of the file to import.*)
+		Device			: STRING[128];			(*Name of the file device where the file is located.*)
+		LocalPath		: STRING[128];			(*The path(name) of the file to import.*)
 	END_VAR
 	
 	VAR_OUTPUT
