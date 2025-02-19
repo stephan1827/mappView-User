@@ -27,5 +27,6 @@ Recommended task class is #8 with a 10ms cycle time.
 <a name="Revision-History"></a>
 ## Revision History
 
-#### Version 1.1
-- Fixed export path not connected to ArUser.PAR.FilePath in mappView
+#### Version 1.2
+- Update project to AS6
+- Workaround for user create not assigning default role
