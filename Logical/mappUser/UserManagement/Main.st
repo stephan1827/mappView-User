@@ -152,17 +152,31 @@ PROGRAM _CYCLIC
 				IF ArUserCreate_0.Done AND NOT ArUserCreate_0.Busy THEN
 					// Create new user 
 					IF(ArUser.CMD.UserCreate) THEN
-						ArUser.DAT.Status := 'User ';				
-						brsstrcat(ADR(ArUser.DAT.Status), ADR(tmpUser));
-						brsstrcat(ADR(ArUser.DAT.Status), ADR(' created'));					
-						// Set password when it exists
-						IF ArUser.PAR.Password <> '' THEN
-							UserManagementState := ComparePassword;
-						ELSE
-							ArUser.PAR.UserName := '';
-							UserManagementState := CreateUserListGetFirst;
-						END_IF;
-						RETURN;
+						// --------------------------------------------------------------------------------------------------------------------	
+						// Success
+						ArUserAssignRole_0(Execute := TRUE, UserName := tmpUser, RoleName := DEFAULT_ROLE);
+						ArUserAssignRole_0(Execute := TRUE, UserName := tmpUser, RoleName := DEFAULT_ROLE);
+						IF ArUserAssignRole_0.Done AND NOT ArUserAssignRole_0.Busy THEN
+							ArUserAssignRole_0(Execute := FALSE);
+						
+							ArUser.DAT.Status := 'User ';				
+							brsstrcat(ADR(ArUser.DAT.Status), ADR(tmpUser));
+							brsstrcat(ADR(ArUser.DAT.Status), ADR(' created'));					
+							// Set password when it exists
+							IF ArUser.PAR.Password <> '' THEN
+								UserManagementState := ComparePassword;
+							ELSE
+								ArUser.PAR.UserName := '';
+								UserManagementState := CreateUserListGetFirst;
+							END_IF;										
+						
+							RETURN;						
+						// Error
+						ELSIF ArUserAssignRole_0.Error THEN
+							ArUser.ERR.No := ArUserAssignRole_0.ErrorID;
+							ArUser.ERR.State := UserManagementState;
+							UserManagementState := ErrorUser;
+						END_IF		
 					// Rename existing user
 					ELSE
 						PropertyName := 'UserID';

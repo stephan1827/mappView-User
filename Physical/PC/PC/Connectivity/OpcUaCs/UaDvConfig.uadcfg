@@ -15,8 +15,8 @@
           <Property ID="PermissionRead" Value="1" />
           <Property ID="PermissionWrite" Value="1" />
           <Property ID="PermissionCall" Value="1" />
-          <Property ID="PermissionReadRolePermissions" Value="0" />
-          <Property ID="PermissionWriteRolePermissions" Value="0" />
+          <Property ID="PermissionReadRolePermissions" Value="1" />
+          <Property ID="PermissionWriteRolePermissions" Value="1" />
           <Property ID="PermissionWriteAttribute" Value="1" />
           <Property ID="PermissionReadHistory" Value="1" />
         </Group>

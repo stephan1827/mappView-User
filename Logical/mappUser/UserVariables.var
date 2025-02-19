@@ -5,6 +5,9 @@ VAR CONSTANT
 	MAX_USER_CLIENTS : USINT := 2; (*Maximum number of concurrent web clients*)
 	MAX_USER_ITEM_LEN : USINT := 60; (*String length for users and roles*)
 END_VAR
+VAR
+	DEFAULT_ROLE : STRING[80] := 'Everyone'; (*Default role when user was created*)
+END_VAR
 (*Global variable structure*)
 VAR
 	ArUser : userMAIN; (*Type for user data management*)
