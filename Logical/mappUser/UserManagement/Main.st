@@ -145,35 +145,49 @@ PROGRAM _CYCLIC
 			// Create new user
 			// --------------------------------------------------------------------------------------------------------------------	
 			CreateUser:
-				ArUserCreate_0(Execute := TRUE , UserName := tmpUser);		
-	
-				// --------------------------------------------------------------------------------------------------------------------	
-				// Success
-				IF ArUserCreate_0.Done AND NOT ArUserCreate_0.Busy THEN
-					// Create new user 
-					IF(ArUser.CMD.UserCreate) THEN
-						ArUser.DAT.Status := 'User ';				
-						brsstrcat(ADR(ArUser.DAT.Status), ADR(tmpUser));
-						brsstrcat(ADR(ArUser.DAT.Status), ADR(' created'));					
-						// Set password when it exists
-						IF ArUser.PAR.Password <> '' THEN
-							UserManagementState := ComparePassword;
-						ELSE
-							ArUser.PAR.UserName := '';
-							UserManagementState := CreateUserListGetFirst;
-						END_IF;
-						RETURN;
-					// Rename existing user
-					ELSE
-						PropertyName := 'UserID';
-						UserManagementState := PropertyRead;				
-					END_IF
-				// Error
-				ELSIF ArUserCreate_0.Error THEN
-					ArUser.ERR.No := ArUserCreate_0.ErrorID;
-					ArUser.ERR.State := UserManagementState;
-					UserManagementState := ErrorUser;	
-				END_IF;
+				ArUserCreate_0(Execute := TRUE , UserName := tmpUser);		 
+	 
+				// --------------------------------------------------------------------------------------------------------------------	 
+				// Success 
+				IF ArUserCreate_0.Done AND NOT ArUserCreate_0.Busy THEN 
+					// Create new user  
+					IF(ArUser.CMD.UserCreate) THEN 
+						// --------------------------------------------------------------------------------------------------------------------	 
+						// Success 
+						ArUserAssignRole_0(Execute := TRUE, UserName := tmpUser, RoleName := DEFAULT_ROLE); 
+						ArUserAssignRole_0(Execute := TRUE, UserName := tmpUser, RoleName := DEFAULT_ROLE); 
+						IF ArUserAssignRole_0.Done AND NOT ArUserAssignRole_0.Busy THEN 
+							ArUserAssignRole_0(Execute := FALSE); 
+						 
+							ArUser.DAT.Status := 'User ';				 
+							brsstrcat(ADR(ArUser.DAT.Status), ADR(tmpUser)); 
+							brsstrcat(ADR(ArUser.DAT.Status), ADR(' created'));					 
+							// Set password when it exists 
+							IF ArUser.PAR.Password <> '' THEN 
+								UserManagementState := ComparePassword; 
+							ELSE 
+								ArUser.PAR.UserName := ''; 
+								UserManagementState := CreateUserListGetFirst; 
+							END_IF;										 
+						 
+							RETURN;						 
+							// Error 
+						ELSIF ArUserAssignRole_0.Error THEN 
+							ArUser.ERR.No := ArUserAssignRole_0.ErrorID; 
+							ArUser.ERR.State := UserManagementState; 
+							UserManagementState := ErrorUser; 
+						END_IF		 
+						// Rename existing user 
+					ELSE 
+						PropertyName := 'UserID'; 
+						UserManagementState := PropertyRead;				 
+					END_IF 
+					// Error 
+				ELSIF ArUserCreate_0.Error THEN 
+					ArUser.ERR.No := ArUserCreate_0.ErrorID; 
+					ArUser.ERR.State := UserManagementState; 
+					UserManagementState := ErrorUser;	 
+				END_IF; 
 				
 			// --------------------------------------------------------------------------------------------------------------------
 			// Assign user role
@@ -334,7 +348,7 @@ PROGRAM _CYCLIC
 			// Export user list to file
 			// --------------------------------------------------------------------------------------------------------------------					
 			ExportList:
-				ArUserExport_0(Execute := TRUE , FilePath := ArUser.PAR.FilePath);		
+				ArUserExport_0(Execute := TRUE , LocalPath := ArUser.PAR.FilePath);		
 	
 				// --------------------------------------------------------------------------------------------------------------------	
 				// Success
@@ -355,7 +369,7 @@ PROGRAM _CYCLIC
 			// Import user list from file
 			// --------------------------------------------------------------------------------------------------------------------					
 			ImportList:
-				ArUserImport_0(Execute := TRUE , FilePath := ArUser.PAR.FilePath);		
+				ArUserImport_0(Execute := TRUE , LocalPath := ArUser.PAR.FilePath);		
 	
 				// --------------------------------------------------------------------------------------------------------------------	
 				// Success

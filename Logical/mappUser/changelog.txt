@@ -1,3 +1,7 @@
+Version 1.2
+- Update project to AS6
+- Workaround for user create not assigning default role
+
 Version 1.1
 - Dont disable enable button in RFID group
 - Added user partition for export/import

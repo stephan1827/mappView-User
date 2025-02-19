@@ -15,39 +15,6 @@ extern "C"
 #ifndef _BUR_PUBLIC
 #define _BUR_PUBLIC
 #endif
-/* Constants */
-#ifdef _REPLACE_CONST
- #define arUSER_ERR_INTERNAL (-1070585889)
- #define arUSER_WRN_END_OF_LIST (-2144327714)
- #define arUSER_ERR_FILE (-1070585891)
- #define arUSER_ERR_DOES_NOT_EXIST (-1070585892)
- #define arUSER_ERR_ALREADY_EXISTS (-1070585893)
- #define arUSER_ERR_PARAMETER (-1070585894)
- #define arUSER_USER_PROPERTIES 5U
- #define arUSER_ROLE_PROPERTIES 4U
- #define arUSER_USERROLES 3U
- #define arUSER_ROLE 2U
- #define arUSER_USER 1U
-#else
- #ifndef _GLOBAL_CONST
-   #define _GLOBAL_CONST _WEAK const
- #endif
- _GLOBAL_CONST signed long arUSER_ERR_INTERNAL;
- _GLOBAL_CONST signed long arUSER_WRN_END_OF_LIST;
- _GLOBAL_CONST signed long arUSER_ERR_FILE;
- _GLOBAL_CONST signed long arUSER_ERR_DOES_NOT_EXIST;
- _GLOBAL_CONST signed long arUSER_ERR_ALREADY_EXISTS;
- _GLOBAL_CONST signed long arUSER_ERR_PARAMETER;
- _GLOBAL_CONST plcbyte arUSER_USER_PROPERTIES;
- _GLOBAL_CONST plcbyte arUSER_ROLE_PROPERTIES;
- _GLOBAL_CONST plcbyte arUSER_USERROLES;
- _GLOBAL_CONST plcbyte arUSER_ROLE;
- _GLOBAL_CONST plcbyte arUSER_USER;
-#endif
-
-
-
-
 /* Datatypes and datatypes of function blocks */
 typedef struct ArUserIdentType
 {	unsigned long Handle;
@@ -315,10 +282,11 @@ typedef struct ArUserReleaseRole
 	plcbit Error;
 } ArUserReleaseRole_typ;
 
-typedef struct ArUserExport
+typedef struct ArUserExportEx
 {
 	/* VAR_INPUT (analog) */
-	plcstring FilePath[129];
+	plcstring Device[129];
+	plcstring LocalPath[129];
 	/* VAR_OUTPUT (analog) */
 	signed long ErrorID;
 	/* VAR (analog) */
@@ -329,12 +297,13 @@ typedef struct ArUserExport
 	plcbit Done;
 	plcbit Busy;
 	plcbit Error;
-} ArUserExport_typ;
+} ArUserExportEx_typ;
 
-typedef struct ArUserImport
+typedef struct ArUserImportEx
 {
 	/* VAR_INPUT (analog) */
-	plcstring FilePath[129];
+	plcstring Device[129];
+	plcstring LocalPath[129];
 	/* VAR_OUTPUT (analog) */
 	signed long ErrorID;
 	/* VAR (analog) */
@@ -345,7 +314,7 @@ typedef struct ArUserImport
 	plcbit Done;
 	plcbit Busy;
 	plcbit Error;
-} ArUserImport_typ;
+} ArUserImportEx_typ;
 
 typedef struct ArUserGetProperty
 {
@@ -403,10 +372,44 @@ _BUR_PUBLIC void ArUserSetPassword(struct ArUserSetPassword* inst);
 _BUR_PUBLIC void ArUserSetToken(struct ArUserSetToken* inst);
 _BUR_PUBLIC void ArUserAssignRole(struct ArUserAssignRole* inst);
 _BUR_PUBLIC void ArUserReleaseRole(struct ArUserReleaseRole* inst);
-_BUR_PUBLIC void ArUserExport(struct ArUserExport* inst);
-_BUR_PUBLIC void ArUserImport(struct ArUserImport* inst);
+_BUR_PUBLIC void ArUserExportEx(struct ArUserExportEx* inst);
+_BUR_PUBLIC void ArUserImportEx(struct ArUserImportEx* inst);
 _BUR_PUBLIC void ArUserGetProperty(struct ArUserGetProperty* inst);
 _BUR_PUBLIC void ArUserSetProperty(struct ArUserSetProperty* inst);
+
+
+/* Constants */
+#ifdef _REPLACE_CONST
+ #define arUSER_ERR_MEMORY (-1070585890)
+ #define arUSER_ERR_INTERNAL (-1070585889)
+ #define arUSER_WRN_END_OF_LIST (-2144327714)
+ #define arUSER_ERR_FILE (-1070585891)
+ #define arUSER_ERR_DOES_NOT_EXIST (-1070585892)
+ #define arUSER_ERR_ALREADY_EXISTS (-1070585893)
+ #define arUSER_ERR_PARAMETER (-1070585894)
+ #define arUSER_ERR_FORBIDDEN (-1070585895)
+ #define arUSER_USER_PROPERTIES 5U
+ #define arUSER_ROLE_PROPERTIES 4U
+ #define arUSER_USERROLES 3U
+ #define arUSER_ROLE 2U
+ #define arUSER_USER 1U
+#else
+ _GLOBAL_CONST signed long arUSER_ERR_MEMORY;
+ _GLOBAL_CONST signed long arUSER_ERR_INTERNAL;
+ _GLOBAL_CONST signed long arUSER_WRN_END_OF_LIST;
+ _GLOBAL_CONST signed long arUSER_ERR_FILE;
+ _GLOBAL_CONST signed long arUSER_ERR_DOES_NOT_EXIST;
+ _GLOBAL_CONST signed long arUSER_ERR_ALREADY_EXISTS;
+ _GLOBAL_CONST signed long arUSER_ERR_PARAMETER;
+ _GLOBAL_CONST signed long arUSER_ERR_FORBIDDEN;
+ _GLOBAL_CONST plcbyte arUSER_USER_PROPERTIES;
+ _GLOBAL_CONST plcbyte arUSER_ROLE_PROPERTIES;
+ _GLOBAL_CONST plcbyte arUSER_USERROLES;
+ _GLOBAL_CONST plcbyte arUSER_ROLE;
+ _GLOBAL_CONST plcbyte arUSER_USER;
+#endif
+
+
 
 
 #ifdef __cplusplus
