@@ -14,6 +14,9 @@
     <Parameter ID="FileDeviceName1" Value="FileDevice" />
     <Parameter ID="FileDevicePath1" Value="C:\Users\hendricksf\Desktop" />
     <Parameter ID="ActivateOpcUa" Value="1" />
-    <Parameter ID="OpcUaInformationModels_PV_Version" Value="1" />
+    <Parameter ID="OpcUaInformationModels_PV_Version" Value="2" />
+    <Parameter ID="OpcUaInformationModel_Facet" Value="0" />
+    <Parameter ID="OpcUaInformationModel_TypeInformation" Value="0" />
+    <Parameter ID="OpcUaInformationModel_BaseObjectTypeForStructures" Value="0" />
   </Module>
 </Hardware>

@@ -8,5 +8,6 @@
     <Object Type="File" Reference="true">\Physical\PC\PC\mappView\ArUser.binding</Object>
     <Object Type="File" Reference="true">\Physical\PC\PC\mappView\RFID.eventbinding</Object>
     <Object Type="File" Reference="true">\Physical\PC\PC\mappView\RFID.binding</Object>
+    <Object Type="File" Reference="true">\Physical\PC\PC\mappView\OpcUaServer.uaserver</Object>
   </Objects>
 </Package>
