@@ -80,14 +80,6 @@ If the token is removed from a user the password will be set identically to the 
 <a name="Revision-History"></a>
 ## Revision History
 
-Version 1.1
-- Dont disable enable button in RFID group
-- Added user partition for export/import
-- Fixed export path not connected to ArUser.PAR.FilePath in mappView
-
-Version 1.0
-- Fixed password is not created
-
-Version 0.8
-- Update user managment to version 0.8
-- Added support for RFID reader 5E9030
+#### Version 1.2
+- Update project to AS6
+- Workaround for user create not assigning default role
